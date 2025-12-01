@@ -18,7 +18,6 @@ IPAddress subnet(255, 255, 255, 0);
 #define IN4 13
 #define ENB 15
 #define SERVO 4
-#define BUZZER 5
 
 bool tendang = false;
 
@@ -47,19 +46,6 @@ void stopMotor() {
   digitalWrite(IN4, LOW);
 }
 
-void emergencyAction() {
-  Serial.println("🚨 EMERGENCY ACTIVATED!");
-  for (int pos = 30; pos <= 180; pos += 5) {
-    kicker.write(pos);
-    delay(20);
-  }
-  delay(300);
-  for (int pos = 180; pos >= 30; pos -= 5) {
-    kicker.write(pos);
-    delay(20);
-  }
-  Serial.println("🚨 EMERGENCY RESET!");
-}
 
 void setup() {
   Serial.begin(115200);
@@ -108,11 +94,6 @@ void setup() {
     delay(200);
     kicker.write(30);
     req->send(200, "text/plain", "kick");
-  });
-
-  server.on("/emergency", HTTP_GET, [](AsyncWebServerRequest *req) {
-    emergencyAction();
-    req->send(200, "text/plain", "emergency");
   });
 
   server.begin();
@@ -276,10 +257,6 @@ function resetStick() {
 
 function kick() {
   fetch("/kick");
-}
-
-function emergency() {
-  fetch("/emergency");
 }
 
 // === FULLSCREEN ===
