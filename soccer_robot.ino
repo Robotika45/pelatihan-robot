@@ -5,9 +5,9 @@
 AsyncWebServer server(80);
 Servo kicker;
 
-const char* ssid = "RobotSoccer2";
-const char* password = "12345678";
-IPAddress local_IP(192, 168, 20, 1);
+const char* ssid = "RobotSoccer2"; // rubah nama wifi dengan yang anda inginkan
+const char* password = "12345678"; // rubah password wifi dengan yang anda inginkan
+IPAddress local_IP(192, 168, 20, 1); // 198(tidak perlu dirbuah) | 168(rubah ke 3 digit awal nbi) | 20(rubah ke 3 digit akhir nbi, jika 3 digit nbi anda diawali dengan 0, maka tidak perlu memasukkan angka 0) | 1(tidak perlu dirubah)  
 IPAddress gateway(local_IP);
 IPAddress subnet(255, 255, 255, 0);
 
@@ -46,7 +46,6 @@ void stopMotor() {
   digitalWrite(IN4, LOW);
 }
 
-
 void setup() {
   Serial.begin(115200);
 
@@ -56,7 +55,6 @@ void setup() {
   pinMode(IN2, OUTPUT);
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
-  pinMode(BUZZER, OUTPUT);
 
   kicker.attach(SERVO);
   kicker.write(30);
